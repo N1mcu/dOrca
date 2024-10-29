@@ -1,0 +1,25 @@
+{
+    "general": {
+        "working_base_dir":"/home/user/Documents/test",
+        "database_file":"atlas"
+    },
+    "profiles": {
+        "normal": " -t --rm -v WORKINGDIR:/mnt/base ",
+        "web": " -t --rm -v WORKINGDIR:/mnt/base -v /usr/share/wordlists:/mnt/wordlists ",
+        "r2": " -t --rm -v WORKINGDIR:/mnt/base -e R2_CURL=1",
+        "neo4j": " --rm -p 7474:7474 -p 7687:7687 -v WORKINGDIR/data:/data "
+    },
+    "dockerhub": {
+        "username": "USER",
+        "password": "PASSWORD",
+        "registry": "https://docker.io/"
+    },
+    "atlas": {
+        "username": "USER",
+        "password": "PASSWORD",
+        "server": "MONGODB SERVER",
+        "database":"dOrca",
+        "collection_cmd":"commands",
+        "collection_dockerfile":"dockerfile"
+    }
+}
