@@ -188,3 +188,4 @@ def dev(configs):
         searchImages(options.search)
     elif options.logs:
         logContainer(options.logs)
+        

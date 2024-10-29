@@ -31,3 +31,4 @@ if __name__=="__main__":
       with open(fixPath(jsonConfigFile),"r") as file:
             configs = json.load(file)
       main()
+      
