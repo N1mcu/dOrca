@@ -171,6 +171,37 @@ def dumpDockerfile(conn):
             print("File: %s" % r['file'])
     except Exception as e:
         print(e)
+def searchDockerfile(conn):
+    name = input('Name of the Dockerfile tool: ')
+    try:
+        myquery = {
+            'name':name
+         }
+        x = conn.find(myquery)
+        for r in x:
+            print("----------")
+            print("Name: %s" % r['name'])
+            print("File: %s" % r['file'])
+    except Exception as e:
+        print(e)
+
+def updateDockerfile(conn):
+    name = input('Name of the Dockerfile image (ex: impacket): ')
+    pathToFile = input('Path to the Dockerfile archive: ')
+    if os.path.isfile(pathToFile):
+        dFile = open(pathToFile,'rb')
+        dContent = dFile.read()
+        dContentB64 = base64.b64encode(dContent)
+        dFile.close()
+    else:
+        print("Can't read Dockerfile %s") % (pathToFile)
+    try:
+        myquery = { "name": name }
+        newvalues = { "$set": { "file": dContentB64 } }
+        conn.update_one(myquery, newvalues)
+        print("Data updated.")
+    except Exception as e:
+        print(e)
 
 def initDB(config,col):
     uri = "mongodb+srv://%s:%s@%s/?retryWrites=true&w=majority" % (config['atlas']['username'],config['atlas']['password'],config['atlas']['server'])

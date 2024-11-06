@@ -17,7 +17,7 @@ def getOptions():
 
 def config(config):
     if config['general']['database_file'] == "atlas":
-        from modules.atlas_db import initDB,addData, addFromFile, searchData, removeData, updateData, dumpData, purgeData, exportData, addDockerfile, dropDockerfile, dumpDockerfile, delDockerfile
+        from modules.atlas_db import initDB,addData, addFromFile, searchData, removeData, updateData, dumpData, purgeData, exportData, addDockerfile, dropDockerfile, dumpDockerfile, delDockerfile, updateDockerfile, searchDockerfile
     else:
         from modules.local_db import initDB,addData, addFromFile, searchData, removeData, updateData, dumpData, purgeData, exportData
     options = getOptions()
@@ -34,14 +34,20 @@ def config(config):
     elif options.file:
         addFromFile(conn,options.file)
     elif options.search:
-        searchData(conn)
+        if options.collection:
+            searchDockerfile(conn)
+        else:
+            searchData(conn)
     elif options.remove:
         if options.collection:
             delDockerfile(conn)
         else:
             removeData(conn)
     elif options.update:
-        updateData(conn)
+        if options.collection:
+            updateDockerfile(conn)
+        else:
+            updateData(conn)
     elif options.dump:
         if options.collection:
             dumpDockerfile(conn)
